@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿using Cirrious.CrossCore;
+using Cirrious.MvvmCross.Touch.Platform;
+using Cirrious.MvvmCross.ViewModels;
 using Foundation;
 using UIKit;
 
@@ -11,10 +10,10 @@ namespace Mobile.iOS
 	// User Interface of the application, as well as listening (and optionally responding) to 
 	// application events from iOS.
 	[Register("AppDelegate")]
-	public partial class AppDelegate : UIApplicationDelegate
+	public partial class AppDelegate : MvxApplicationDelegate
 	{
 		// class-level declarations
-		UIWindow window;
+		UIWindow _window;
 
 		//
 		// This method is invoked when the application has loaded and is ready to run. In this 
@@ -26,13 +25,16 @@ namespace Mobile.iOS
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
 			// create a new window instance based on the screen size
-			window = new UIWindow(UIScreen.MainScreen.Bounds);
+			_window = new UIWindow(UIScreen.MainScreen.Bounds);
 
-			// If you have defined a view, add it here:
-			// window.RootViewController  = navigationController;
+			var setup = new Setup(this, _window);
+			setup.Initialize();
+
+			var startup = Mvx.Resolve<IMvxAppStart>();
+			startup.Start();
 
 			// make the window visible
-			window.MakeKeyAndVisible();
+			_window.MakeKeyAndVisible();
 
 			return true;
 		}

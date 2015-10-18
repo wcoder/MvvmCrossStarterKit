@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{283bf3f2-8038-4c6c-b2ac-8f4d3cd197a2}</ProjectGuid>
+    <ProjectGuid>{283BF3F2-8038-4C6C-B2AC-8F4D3CD197A2}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Mobile.WP81</RootNamespace>
@@ -80,15 +80,18 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="DebugTrace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setup.cs" />
+    <Compile Include="Views\FirstView.xaml.cs">
+      <DependentUpon>FirstView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -108,19 +111,45 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainPage.xaml">
+    <Page Include="Views\FirstView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  
+  <ItemGroup>
+    <Reference Include="Cirrious.CrossCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e16445fd9b451819, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.5.1\lib\wpa81\Cirrious.CrossCore.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cirrious.CrossCore.WindowsCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.5.1\lib\wpa81\Cirrious.CrossCore.WindowsCommon.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e16445fd9b451819, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.5.1\lib\wpa81\Cirrious.MvvmCross.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Localization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.5.1\lib\wpa81\Cirrious.MvvmCross.Localization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.WindowsCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.5.1\lib\wpa81\Cirrious.MvvmCross.WindowsCommon.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mobile.Core\Mobile.Core.csproj">
+      <Project>{af6973c3-b022-431d-99e9-259a60ad1ed0}</Project>
+      <Name>Mobile.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetPlatformIdentifier)' == '' ">
     <TargetPlatformIdentifier>WindowsPhoneApp</TargetPlatformIdentifier>
   </PropertyGroup>
-
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
