@@ -75,9 +75,8 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
-	<Reference Include="System.Xml" />
-	<Reference Include="System.Runtime" />
-	<Reference Include="System.ObjectModel" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.ObjectModel" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DebugTrace.cs" />
