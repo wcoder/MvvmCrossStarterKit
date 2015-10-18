@@ -1,16 +1,15 @@
 using Android.App;
-using Android.OS;
 using Cirrious.MvvmCross.Droid.Views;
 using Mobile.Core.ViewModels;
 
 namespace Mobile.Android.Views
 {
-	[Activity(Label = "View for FirstViewModel")]
+	[Activity]
 	public class FirstView : MvxActivity<FirstViewModel>
 	{
-		protected override void OnCreate(Bundle bundle)
+		protected override void OnViewModelSet()
 		{
-			base.OnCreate(bundle);
+			base.OnViewModelSet();
 			SetContentView(Resource.Layout.FirstView);
 		}
 	}
