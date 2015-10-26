@@ -1,5 +1,6 @@
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform.IoC;
+using Mobile.Services;
 
 namespace Mobile.Core
 {
@@ -7,10 +8,7 @@ namespace Mobile.Core
 	{
 		public override void Initialize()
 		{
-			CreatableTypes()
-				.EndingWith("Service")
-				.AsInterfaces()
-				.RegisterAsLazySingleton();
+			Mvx.RegisterSingleton<IMarketDataService>(new MarketDataService());
 				
 			RegisterAppStart<ViewModels.FirstViewModel>();
 		}
