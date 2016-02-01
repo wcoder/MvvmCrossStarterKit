@@ -1,9 +1,9 @@
-using Cirrious.MvvmCross.Binding.BindingContext;
-using Cirrious.MvvmCross.Touch.Views;
 using CoreGraphics;
 using Foundation;
 using ObjCRuntime;
 using UIKit;
+using MvvmCross.Binding.BindingContext;
+using MvvmCross.iOS.Views;
 
 namespace Mobile.iOS.Views
 {

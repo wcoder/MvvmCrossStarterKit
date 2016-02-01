@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cirrious.CrossCore.Core;
-using Cirrious.MvvmCross.ViewModels;
-using Cirrious.MvvmCross.Views;
+using MvvmCross.Core.ViewModels;
+using MvvmCross.Core.Views;
+using MvvmCross.Platform.Core;
 
 namespace Mobile.UnitTests.Mocks
 {

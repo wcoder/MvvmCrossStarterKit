@@ -1,4 +1,4 @@
-using Cirrious.MvvmCross.ViewModels;
+using MvvmCross.Core.ViewModels;
 
 namespace Mobile.Core.ViewModels
 {
@@ -8,7 +8,7 @@ namespace Mobile.Core.ViewModels
 		public string Hello
 		{ 
 			get { return _hello; }
-			set { _hello = value; RaisePropertyChanged(() => Hello); }
+			set { SetProperty(ref _hello, value); }
 		}
 	}
 }

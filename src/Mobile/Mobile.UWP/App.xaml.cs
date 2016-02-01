@@ -4,6 +4,8 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using MvvmCross.Core.ViewModels;
+using MvvmCross.Platform;
 
 namespace Mobile.UWP
 {
@@ -58,7 +60,7 @@ namespace Mobile.UWP
 				var setup = new Setup(rootFrame);
 				setup.Initialize();
 
-				var start = Cirrious.CrossCore.Mvx.Resolve<Cirrious.MvvmCross.ViewModels.IMvxAppStart>();
+				var start = Mvx.Resolve<IMvxAppStart>();
 				start.Start();
 			}
 			// Ensure the current window is active

@@ -1,5 +1,5 @@
-using Cirrious.MvvmCross.WindowsCommon.Views;
 using Mobile.Core.ViewModels;
+using MvvmCross.WindowsCommon.Views;
 
 namespace Mobile.WP81.Views
 {

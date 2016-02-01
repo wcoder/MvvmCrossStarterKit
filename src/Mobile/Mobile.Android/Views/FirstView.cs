@@ -1,6 +1,6 @@
 using Android.App;
-using Cirrious.MvvmCross.Droid.Views;
 using Mobile.Core.ViewModels;
+using MvvmCross.Droid.Views;
 
 namespace Mobile.Android.Views
 {
