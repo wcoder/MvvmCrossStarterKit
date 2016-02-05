@@ -1,5 +1,5 @@
-﻿using Cirrious.MvvmCross.WindowsCommon.Views;
-using Mobile.Core.ViewModels;
+﻿using Mobile.Core.ViewModels;
+using MvvmCross.WindowsUWP.Views;
 
 namespace Mobile.UWP.Views
 {

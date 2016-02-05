@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Android.App;
 using Android.Views;
 using Android.Widget;
+using MvvmCross.Platform.IoC;
 
 namespace Mobile.Android
 {
@@ -67,9 +68,9 @@ namespace Mobile.Android
 			command.CanExecuteChanged += (s, e) => { if (command.CanExecute(null)) command.Execute(null); };
 		}
 		
-		public void Include(Cirrious.CrossCore.IoC.MvxPropertyInjector injector)
+		public void Include(MvxPropertyInjector injector)
 		{
-			injector = new Cirrious.CrossCore.IoC.MvxPropertyInjector ();
+			injector = new MvxPropertyInjector();
 		} 
 
 		public void Include(System.ComponentModel.INotifyPropertyChanged changed)

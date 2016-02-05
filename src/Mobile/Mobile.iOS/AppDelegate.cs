@@ -1,8 +1,9 @@
-﻿using Cirrious.CrossCore;
-using Cirrious.MvvmCross.Touch.Platform;
-using Cirrious.MvvmCross.ViewModels;
-using Foundation;
+﻿using Foundation;
 using UIKit;
+using MvvmCross.Core.ViewModels;
+using MvvmCross.iOS.Platform;
+using MvvmCross.iOS.Views.Presenters;
+using MvvmCross.Platform;
 
 namespace Mobile.iOS
 {
@@ -27,14 +28,15 @@ namespace Mobile.iOS
 			// create a new window instance based on the screen size
 			_window = new UIWindow(UIScreen.MainScreen.Bounds);
 
-			var setup = new Setup(this, _window);
+			var presenter = new MvxIosViewPresenter(this, Window);
+
+			var setup = new Setup(this, presenter);
 			setup.Initialize();
 
 			var startup = Mvx.Resolve<IMvxAppStart>();
 			startup.Start();
 
-			// make the window visible
-			_window.MakeKeyAndVisible();
+			Window.MakeKeyAndVisible();
 
 			return true;
 		}

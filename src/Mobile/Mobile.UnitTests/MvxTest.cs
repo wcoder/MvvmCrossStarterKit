@@ -1,7 +1,7 @@
-﻿using Cirrious.CrossCore.Core;
-using Cirrious.MvvmCross.Test.Core;
-using Cirrious.MvvmCross.Views;
-using Mobile.UnitTests.Mocks;
+﻿using Mobile.UnitTests.Mocks;
+using MvvmCross.Core.Views;
+using MvvmCross.Platform.Core;
+using MvvmCross.Test.Core;
 
 namespace Mobile.UnitTests
 {
