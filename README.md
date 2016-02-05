@@ -1,4 +1,4 @@
-# MvvmCrossStarterKit
+# MvvmCrossStarterKit ![version](http://img.shields.io/badge/release-v2.0.0-brightgreen.svg?style=flat) ![MvvmCross](http://img.shields.io/badge/MvvmCross-v4.0.0-brightgreen.svg?style=flat)
 
 The starter project to develop apps with Xamarin + MvvmCross
 
