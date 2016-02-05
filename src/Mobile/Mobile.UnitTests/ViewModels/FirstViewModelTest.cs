@@ -1,4 +1,5 @@
 ﻿using Mobile.Core.ViewModels;
+using Mobile.UnitTests.Mocks;
 using NUnit.Framework;
 
 namespace Mobile.UnitTests.ViewModels
@@ -12,7 +13,8 @@ namespace Mobile.UnitTests.ViewModels
 			ClearAll();
 
 			var mockNavigation = CreateMockNavigation();
-			var viewModel = new FirstViewModel();
+			var dataService = new MockMarketDataService();
+			var viewModel = new FirstViewModel(dataService);
 			var hello = "Test string";
 
 			viewModel.Hello = hello;
@@ -25,7 +27,8 @@ namespace Mobile.UnitTests.ViewModels
 		{
 			ClearAll();
 
-			var viewModel = new FirstViewModel();
+			var dataService = new MockMarketDataService();
+			var viewModel = new FirstViewModel(dataService);
 			var hello = "Test string";
 
 			viewModel.Hello = hello;

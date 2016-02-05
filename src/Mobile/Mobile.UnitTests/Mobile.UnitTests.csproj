@@ -63,8 +63,10 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mocks\MockMarketDataService.cs" />
     <Compile Include="Mocks\MockMvxViewDispatcher.cs" />
     <Compile Include="MvxTest.cs" />
+    <Compile Include="Services\MarketDataServiceTest.cs" />
     <Compile Include="ViewModels\FirstViewModelTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -73,8 +75,19 @@
       <Project>{AF6973C3-B022-431D-99E9-259A60AD1ED0}</Project>
       <Name>Mobile.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mobile.Models\Mobile.Models.csproj">
+      <Project>{102a4ce3-d747-4a85-9ac8-0ce9e08f840f}</Project>
+      <Name>Mobile.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mobile.Services\Mobile.Services.csproj">
+      <Project>{e371e833-9a57-4b25-9206-bdfc1c0fe92e}</Project>
+      <Name>Mobile.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
 </Project>
