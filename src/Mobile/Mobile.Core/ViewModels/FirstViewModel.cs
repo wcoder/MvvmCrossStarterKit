@@ -1,4 +1,6 @@
+using System;
 using MvvmCross.Core.ViewModels;
+using MvvmCross.Platform.Platform;
 using Mobile.Services;
 
 namespace Mobile.Core.ViewModels
@@ -27,7 +29,7 @@ namespace Mobile.Core.ViewModels
 			{
 				var data = await _dataService.GetMarkets();
 			}
-			catch (System.Exception e)
+			catch (Exception e)
 			{
 				MvxTrace.TaggedError("SERVER_REQUEST", e.ToString());
 			}

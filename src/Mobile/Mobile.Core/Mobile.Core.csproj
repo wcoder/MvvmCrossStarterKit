@@ -60,10 +60,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mobile.Infrastructure\Mobile.Infrastructure.csproj">
-      <Project>{b124f94b-8ee1-43fa-93a3-5af594b08cd3}</Project>
-      <Name>Mobile.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Mobile.Models\Mobile.Models.csproj">
       <Project>{102a4ce3-d747-4a85-9ac8-0ce9e08f840f}</Project>
       <Name>Mobile.Models</Name>

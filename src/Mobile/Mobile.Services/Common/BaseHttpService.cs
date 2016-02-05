@@ -9,7 +9,7 @@ using ModernHttpClient;
 
 namespace Mobile.Services.Common
 {
-	public class BaseHttpService
+	public abstract class BaseHttpService
 	{
 		public const string JsonContentType = "application/json";
 
