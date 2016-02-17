@@ -1,37 +1,39 @@
-using CoreGraphics;
-using Foundation;
-using ObjCRuntime;
+﻿using System;
+
 using UIKit;
-using MvvmCross.Binding.BindingContext;
 using MvvmCross.iOS.Views;
+using Mobile.Core.ViewModels;
+using MvvmCross.Binding.BindingContext;
 
 namespace Mobile.iOS.Views
 {
-	[Register("FirstView")]
-	public class FirstView : MvxViewController
+	[MvxFromStoryboard]
+	public partial class FirstView : MvxViewController<FirstViewModel>
 	{
+		public FirstView(IntPtr handle) : base(handle)
+		{
+		}
+
+		void CreateBindings()
+		{
+			this.CreateBinding(textFeild).To((FirstViewModel vm) => vm.Hello).Apply();
+			this.CreateBinding(textLabel).To((FirstViewModel vm) => vm.Hello).Apply();
+		}
+	
 		public override void ViewDidLoad()
 		{
-			View = new UIView { BackgroundColor = UIColor.White };
 			base.ViewDidLoad();
 
-			// ios7 layout
-			if (RespondsToSelector(new Selector("edgesForExtendedLayout")))
-			{
-				EdgesForExtendedLayout = UIRectEdge.None;
-			}
+			// Perform any additional setup after loading the view, typically from a nib.
+			CreateBindings();
+		}
 
-			var textField = new UITextField(new CGRect(10, 10, 300, 40));
-			textField.BorderStyle = UITextBorderStyle.Line;
-			Add(textField);
-
-			var label = new UILabel(new CGRect(10, 50, 300, 40));
-			Add(label);
-
-			var set = this.CreateBindingSet<FirstView, Core.ViewModels.FirstViewModel>();
-			set.Bind(label).To(vm => vm.Hello);
-			set.Bind(textField).To(vm => vm.Hello);
-			set.Apply();
+		public override void DidReceiveMemoryWarning()
+		{
+			base.DidReceiveMemoryWarning();
+			// Release any cached data, images, etc that aren't in use.
 		}
 	}
 }
+
+
