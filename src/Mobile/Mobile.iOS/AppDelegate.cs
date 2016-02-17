@@ -14,7 +14,7 @@ namespace Mobile.iOS
 	public partial class AppDelegate : MvxApplicationDelegate
 	{
 		// class-level declarations
-		UIWindow _window;
+		private UIWindow Window;
 
 		//
 		// This method is invoked when the application has loaded and is ready to run. In this 
@@ -26,7 +26,7 @@ namespace Mobile.iOS
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
 			// create a new window instance based on the screen size
-			_window = new UIWindow(UIScreen.MainScreen.Bounds);
+			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
 			var presenter = new MvxIosViewPresenter(this, Window);
 
