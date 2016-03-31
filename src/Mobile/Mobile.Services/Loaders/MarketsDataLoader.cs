@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Mobile.Services.Common;
-using Mobile.Services.Identities;
 using Newtonsoft.Json;
 using Mobile.Models;
 using Mobile.Services.DataModels;
+using Mobile.Services.Identities;
+using Mobile.Services.Common.Http;
 
 namespace Mobile.Services.Loaders
 {
@@ -18,20 +18,30 @@ namespace Mobile.Services.Loaders
 
 		public HttpRequestParameters GetParameters()
 		{
-			return new HttpRequestParameters
+			var requestParams = new HttpRequestParameters
 			{
 				Url = _identity.ServerUrl
 			};
+
+			// set request type
+
+			// serialize content
+
+			// set auth value
+
+			// and etc.
+
+			return requestParams;
 		}
 
 		public async Task<TResult> Deserialize<TResult>(string response) where TResult : class, new()
 		{
 			var result = await Task.Factory.StartNew<TResult>(() =>
-			{
-				var data = JsonConvert.DeserializeObject<MarketResponse>(response);
+				{
+					var data = JsonConvert.DeserializeObject<MarketResponse>(response);
 
-				return new MarketsDataModel { Markets = data.markets } as TResult;
-			});
+					return new MarketsDataModel { Markets = data.markets } as TResult;
+				});
 			return result;
 		}
 	}

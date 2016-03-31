@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Mobile.Services.Common;
+using Mobile.Models;
 using Mobile.Services.Identities;
 using Mobile.Services.Loaders;
 using Mobile.Services.DataModels;
-using Mobile.Models;
+using Mobile.Services.Common.Http;
 
 namespace Mobile.Services
 {
-	public class MarketDataService : BaseHttpService, IMarketDataService
+	public class MarketDataService : NoCacheableHttpService, IMarketDataService
 	{
 		private const string FakeApiUrl = "https://dl.dropboxusercontent.com/u/30506652/data/data.json";
 

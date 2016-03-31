@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using ModernHttpClient;
 
-namespace Mobile.Services.Common
+namespace Mobile.Services.Common.Http
 {
 	public abstract class BaseHttpService
 	{
 		public const string JsonContentType = "application/json";
+
+		protected virtual string AuthenticationHeaderValueName
+		{
+			get { return "Basic"; }
+		}
 
 		protected virtual async Task<T> LoadAsync<T>(IHttpDataLoader dataLoader) where T : class, new()
 		{
@@ -27,20 +32,25 @@ namespace Mobile.Services.Common
 			using (var httpClient = new HttpClient(new NativeMessageHandler()))
 			{
 				var requestMessage = await GetHttpRequestMessage(requestParams.Url, requestParams.Method, requestParams.Parameters);
-				if (requestParams.Content != null && requestParams.ContentType != null)
+				if (requestParams.Content != null)
 				{
-					requestMessage.Content = new StringContent(requestParams.Content, Encoding.UTF8, requestParams.ContentType);
+					var contentType = requestParams.ContentType ?? JsonContentType;
+					requestMessage.Content = new StringContent(requestParams.Content, Encoding.UTF8, contentType);
 				}
-				var authHeader = requestParams.AuthHeader != null ? new AuthenticationHeaderValue("Basic", requestParams.AuthHeader) : null;
+
+				var authHeader = requestParams.AuthHeader != null
+					? new AuthenticationHeaderValue(AuthenticationHeaderValueName, requestParams.AuthHeader)
+					: null;
 				PrepareHeaders(httpClient, requestMessage, authHeader);
 
-				var response = await httpClient.SendAsync(requestMessage);
-				return response;
+				return await httpClient.SendAsync(requestMessage);
 			}
 		}
 
-		protected virtual async Task<HttpRequestMessage> GetHttpRequestMessage(string url,
-			HttpMethod httpMethod, Dictionary<string, string> urlParameters = null)
+		protected virtual async Task<HttpRequestMessage> GetHttpRequestMessage(
+			string url,
+			HttpMethod httpMethod,
+			Dictionary<string, string> urlParameters = null)
 		{
 			if (urlParameters != null && urlParameters.Count > 0)
 			{
@@ -51,8 +61,10 @@ namespace Mobile.Services.Common
 			return new HttpRequestMessage(httpMethod, url);
 		}
 
-		protected virtual void PrepareHeaders(HttpClient client,
-			HttpRequestMessage requestMessage, AuthenticationHeaderValue auth = null)
+		protected virtual void PrepareHeaders(
+			HttpClient client,
+			HttpRequestMessage requestMessage,
+			AuthenticationHeaderValue auth = null)
 		{
 			requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(JsonContentType));
 			if (auth != null)
@@ -70,9 +82,9 @@ namespace Mobile.Services.Common
 
 			throw new WebException(
 				string.Format("Request {0} to {1} failed with status {2}",
-				response.RequestMessage.Method,
-				response.RequestMessage.RequestUri,
-				response.StatusCode));
+					response.RequestMessage.Method,
+					response.RequestMessage.RequestUri,
+					response.StatusCode));
 		}
 	}
 }
