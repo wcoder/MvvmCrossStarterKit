@@ -13,9 +13,8 @@ The starter project to develop apps with Xamarin + MvvmCross
 
 ## Features on branches
 
-- [feature/ios-storyboard](https://github.com/wcoder/MvvmCrossStarterKit/tree/feature/ios-storyboard) - support storyboards for iOS
+- [feature/storyboard](https://github.com/wcoder/MvvmCrossStarterKit/tree/feature/storyboard) - support storyboards for iOS
 - [feature/data-services](https://github.com/wcoder/MvvmCrossStarterKit/tree/feature/data-services) - architecture for data services
-
 
 
 ---
