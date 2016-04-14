@@ -143,6 +143,13 @@
 						</NavigationThemeTransition>
 					</TransitionCollection>
 				</Frame.ContentTransitions>
+
+				<!--
+					You might want to add some initial content here, or in the `Init` of the HomeViewModel invoke another `ShowViewModel<T>();`
+					That would replace the empty frame with the contents of the corresponding view
+				-->
+				<TextBlock Text="AppShell View" />
+				
 			</Frame>
 		</SplitView>
 
