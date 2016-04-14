@@ -12,7 +12,7 @@ namespace Mobile.Core
 				.AsInterfaces()
 				.RegisterAsLazySingleton();
 				
-			RegisterAppStart<ViewModels.FirstViewModel>();
+			RegisterAppStart<ViewModels.AppShellViewModel>();
 		}
 	}
 }

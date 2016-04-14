@@ -1,8 +1,11 @@
-﻿using System;
+﻿using System.Windows.Input;
 using Windows.UI.Xaml.Controls;
 
 namespace Mobile.UWP
 {
+	// Based on:
+	// https://github.com/Microsoft/Windows-universal-samples/blob/master/Samples/XamlNavigation/cs/NavMenuItem.cs
+
 	/// <summary>
 	/// Data to represent an item in the nav menu.
 	/// </summary>
@@ -18,7 +21,7 @@ namespace Mobile.UWP
 			}
 		}
 
-		public Type DestPage { get; set; }
-		public object Arguments { get; set; }
+		public ICommand Command { get; set; }
+		public object Parameters { get; set; }
 	}
 }

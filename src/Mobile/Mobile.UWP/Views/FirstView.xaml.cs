@@ -1,7 +1,9 @@
-﻿using Mobile.Core.ViewModels;
+﻿using MvvmCross.WindowsUWP.Views;
+using Mobile.Core.ViewModels;
 
 namespace Mobile.UWP.Views
 {
+	[MvxRegion("MainContent")]
 	public sealed partial class FirstView
 	{
 		public new FirstViewModel ViewModel

@@ -1,47 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Windows.Foundation;
-using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using Mobile.Core.ViewModels;
 using Mobile.UWP.Controls;
-using Mobile.UWP.Views;
 
-namespace Mobile.UWP
+namespace Mobile.UWP.Views
 {
+	// Based on:
 	// https://github.com/Microsoft/Windows-universal-samples/blob/master/Samples/XamlNavigation/cs/AppShell.xaml.cs
 
 	/// <summary>
 	/// The "chrome" layer of the app that provides top-level navigation with
 	/// proper keyboarding navigation.
 	/// </summary>
-	public sealed partial class AppShell : Page
+	public sealed partial class AppShell
 	{
-		private bool isPaddingAdded = false;
+		private bool isPaddingAdded;
 
-		// Declare the top level nav items
-		private List<NavMenuItem> navlist = new List<NavMenuItem>(
-			new[]
-			{
-				new NavMenuItem
-				{
-					Symbol = Symbol.Home,
-					Label = "Home",
-					DestPage = typeof(FirstView)
-				},
-				new NavMenuItem
-				{
-					Symbol = Symbol.Setting,
-					Label = "Second",
-					DestPage = typeof(SecondView)
-				}
-			});
+		public new AppShellViewModel ViewModel
+		{
+			get { return (AppShellViewModel)base.ViewModel; }
+			set { base.ViewModel = value; }
+		}
 
-		public static AppShell Current = null;
+		public AppShellViewModel Vm { get; set; }
+
 
 		/// <summary>
 		/// Initializes a new instance of the AppShell, sets the static 'Current' reference,
@@ -51,11 +39,10 @@ namespace Mobile.UWP
 		public AppShell()
 		{
 			InitializeComponent();
+			
 
 			Loaded += (sender, args) =>
 			{
-				Current = this;
-
 				CheckTogglePaneButtonSizeChanged();
 
 				var titleBar = Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().TitleBar;
@@ -71,14 +58,43 @@ namespace Mobile.UWP
 					CheckTogglePaneButtonSizeChanged();
 				});
 
-			SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
-			SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+			// TODO:
+			//SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;
+			//SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
 
 
-			NavMenuList.ItemsSource = navlist;
+			NavMenuList.ItemsSource = new List<NavMenuItem>();
 		}
 
-		public Frame AppFrame { get { return frame; } }
+
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			base.OnNavigatedTo(e);
+
+			// http://stackoverflow.com/questions/35802164/uwp10-viewmodel-property-is-null
+			Vm = ViewModel;
+
+
+			NavMenuList.ItemsSource = new List<NavMenuItem>(
+				new[]
+				{
+					new NavMenuItem
+					{
+						Symbol = Symbol.Home,
+						Label = "Home",
+						Command = ViewModel.GoToFirstCommand
+					},
+					new NavMenuItem
+					{
+						Symbol = Symbol.Setting,
+						Label = "Second",
+						Command = ViewModel.GoToSecondCommand
+					}
+				});
+		}
+
+
+		#region Window & Titlebar
 
 		/// <summary>
 		/// Invoked when window title bar visibility changes, such as after loading or in tablet mode
@@ -96,11 +112,12 @@ namespace Mobile.UWP
 
 				Thickness margin = NavMenuList.Margin;
 				NavMenuList.Margin = new Thickness(margin.Left, margin.Top + extraPadding, margin.Right, margin.Bottom);
-				margin = frame.Margin;
-				frame.Margin = new Thickness(margin.Left, margin.Top + extraPadding, margin.Right, margin.Bottom);
+				margin = MainContent.Margin;
+				MainContent.Margin = new Thickness(margin.Left, margin.Top + extraPadding, margin.Right, margin.Bottom);
 				margin = TogglePaneButton.Margin;
 				TogglePaneButton.Margin = new Thickness(margin.Left, margin.Top + extraPadding, margin.Right, margin.Bottom);
 			}
+			
 		}
 
 		/// <summary>
@@ -152,30 +169,32 @@ namespace Mobile.UWP
 			}
 		}
 
+		#endregion
+
 		#region BackRequested Handlers
 
-		private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
-		{
-			bool handled = e.Handled;
-			BackRequested(ref handled);
-			e.Handled = handled;
-		}
+		//private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
+		//{
+		//	bool handled = e.Handled;
+		//	BackRequested(ref handled);
+		//	e.Handled = handled;
+		//}
 
-		private void BackRequested(ref bool handled)
-		{
-			// Get a hold of the current frame so that we can inspect the app back stack.
+		//private void BackRequested(ref bool handled)
+		//{
+		//	// Get a hold of the current frame so that we can inspect the app back stack.
+			
+		//	if (AppFrame == null)
+		//		return;
 
-			if (AppFrame == null)
-				return;
-
-			// Check to see if this is the top-most page on the app back stack.
-			if (AppFrame.CanGoBack && !handled)
-			{
-				// If not, set the event to handled and go back to the previous page in the app.
-				handled = true;
-				AppFrame.GoBack();
-			}
-		}
+		//	// Check to see if this is the top-most page on the app back stack.
+		//	if (AppFrame.CanGoBack && !handled)
+		//	{
+		//		// If not, set the event to handled and go back to the previous page in the app.
+		//		handled = true;
+		//		AppFrame.GoBack();
+		//	}
+		//}
 
 		#endregion
 
@@ -189,68 +208,12 @@ namespace Mobile.UWP
 		private void NavMenuList_ItemInvoked(object sender, ListViewItem listViewItem)
 		{
 			var item = (NavMenuItem)((NavMenuListView)sender).ItemFromContainer(listViewItem);
-
-			if (item != null)
-			{
-				if (item.DestPage != null &&
-					item.DestPage != AppFrame.CurrentSourcePageType)
-				{
-					AppFrame.Navigate(item.DestPage, item.Arguments);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Ensures the nav menu reflects reality when navigation is triggered outside of
-		/// the nav menu buttons.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void OnNavigatingToPage(object sender, NavigatingCancelEventArgs e)
-		{
-			if (e.NavigationMode == NavigationMode.Back)
-			{
-				var item = (from p in navlist where p.DestPage == e.SourcePageType select p).SingleOrDefault();
-				if (item == null && AppFrame.BackStackDepth > 0)
-				{
-					// In cases where a page drills into sub-pages then we'll highlight the most recent
-					// navigation menu item that appears in the BackStack
-					foreach (var entry in AppFrame.BackStack.Reverse())
-					{
-						item = (from p in navlist where p.DestPage == entry.SourcePageType select p).SingleOrDefault();
-						if (item != null)
-							break;
-					}
-				}
-
-				var container = (ListViewItem)NavMenuList.ContainerFromItem(item);
-
-				// While updating the selection state of the item prevent it from taking keyboard focus.  If a
-				// user is invoking the back button via the keyboard causing the selected nav menu item to change
-				// then focus will remain on the back button.
-				if (container != null) container.IsTabStop = false;
-				NavMenuList.SetSelectedItem(container);
-				if (container != null) container.IsTabStop = true;
-			}
-		}
-
-		private void OnNavigatedToPage(object sender, NavigationEventArgs e)
-		{
-			// After a successful navigation set keyboard focus to the loaded page
-			if (e.Content is Page && e.Content != null)
-			{
-				var control = (Page)e.Content;
-				control.Loaded += Page_Loaded;
-			}
-		}
-
-		private void Page_Loaded(object sender, RoutedEventArgs e)
-		{
-			((Page)sender).Focus(FocusState.Programmatic);
-			((Page)sender).Loaded -= Page_Loaded;
+			item?.Command?.Execute(item.Parameters);
 		}
 
 		#endregion
+
+		#region SplitView
 
 		public Rect TogglePaneButtonRect
 		{
@@ -350,5 +313,7 @@ namespace Mobile.UWP
 				args.ItemContainer.ClearValue(AutomationProperties.NameProperty);
 			}
 		}
+
+		#endregion
 	}
 }

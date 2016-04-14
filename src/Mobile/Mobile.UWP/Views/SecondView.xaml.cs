@@ -1,5 +1,5 @@
-﻿using Mobile.Core.ViewModels;
-using MvvmCross.WindowsUWP.Views;
+﻿using MvvmCross.WindowsUWP.Views;
+using Mobile.Core.ViewModels;
 
 namespace Mobile.UWP.Views
 {
