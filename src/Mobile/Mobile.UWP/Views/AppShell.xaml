@@ -9,11 +9,12 @@
 	xmlns:views="using:MvvmCross.WindowsUWP.Views"
 	mc:Ignorable="d">
 
-	<!-- Using a Page as the root for the app provides a design time experience as well as ensures that
-         when it runs on Mobile the app content won't appear under the system's StatusBar which is visible
-         by default with a transparent background.  It will also take into account the presence of software
-         navigation buttons if they appear on a device.  An app can opt-out by switching to UseCoreWindow.
-    -->
+	<!--
+		Using a Page as the root for the app provides a design time experience as well as ensures that
+		when it runs on Mobile the app content won't appear under the system's StatusBar which is visible
+		by default with a transparent background.  It will also take into account the presence of software
+		navigation buttons if they appear on a device.  An app can opt-out by switching to UseCoreWindow.
+	-->
 
 	<Page.Resources>
 		<DataTemplate x:Key="NavMenuItemTemplate" x:DataType="local:NavMenuItem">
@@ -22,10 +23,12 @@
 					<ColumnDefinition Width="48" />
 					<ColumnDefinition />
 				</Grid.ColumnDefinitions>
-				<!-- Showing a ToolTip and the Label is redundant.  We put the ToolTip on the icon.
-                     It appears when the user hovers over the icon, but not the label which provides
-                     value when the SplitView is 'Compact' while reducing the likelihood of showing
-                     redundant information when the label is shown.-->
+				<!--
+					Showing a ToolTip and the Label is redundant.  We put the ToolTip on the icon.
+					It appears when the user hovers over the icon, but not the label which provides
+					value when the SplitView is 'Compact' while reducing the likelihood of showing
+					redundant information when the label is shown.
+				-->
 				<FontIcon x:Name="Glyph" FontSize="16" Glyph="{x:Bind SymbolAsChar}" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTipService.ToolTip="{x:Bind Label}"/>
 				<TextBlock x:Name="Text" Grid.Column="1" Text="{x:Bind Label}" Style="{StaticResource BodyTextBlockStyle}" TextWrapping="NoWrap"/>
 			</Grid>
@@ -69,11 +72,12 @@
 		</VisualStateManager.VisualStateGroups>
 
 		<!-- Top-level navigation menu + app content -->
-		<SplitView x:Name="RootSplitView"
-                   DisplayMode="Inline"
-                   OpenPaneLength="120"
-                   PaneClosed="RootSplitView_PaneClosed"
-                   IsTabStop="False">
+		<SplitView
+			x:Name="RootSplitView"
+			DisplayMode="Inline"
+			OpenPaneLength="120"
+			PaneClosed="RootSplitView_PaneClosed"
+			IsTabStop="False">
 
 			<SplitView.Pane>
 				<Grid>
@@ -90,39 +94,45 @@
 					</Grid.ColumnDefinitions>
 
 					<!-- A custom ListView to display the items in the pane.  The automation Name is set in the ContainerContentChanging event. -->
-					<controls:NavMenuListView x:Name="NavMenuList"
-                                          Grid.ColumnSpan="3"
-                                          TabIndex="3"
-                                          Margin="0,52,0,0"
-                                          ContainerContentChanging="NavMenuItemContainerContentChanging"
-                                          ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
-                                          ItemTemplate="{StaticResource NavMenuItemTemplate}"
-                                          ItemInvoked="NavMenuList_ItemInvoked"/>
-					<Rectangle x:Name="NavPaneDivider"
-                               Grid.Row="1"
-                               Grid.ColumnSpan="3"
-                               Height="1"
-                               Fill="{ThemeResource SystemControlForegroundBaseLowBrush}"
-                               Margin="16,0,16,6"/>
-					<Button x:Name="FeedbackNavPaneButton"
-                            Grid.Row="2"
-                            Grid.Column="1"
-                            Style="{StaticResource SplitViewPaneButtonStyle}"
-                            Content="&#xE76E;"
-                            AutomationProperties.Name="Feedback"
-                            ToolTipService.ToolTip="Feedback"/>
-					<Button x:Name="SettingsNavPaneButton"
-                            Grid.Row="2"
-                            Grid.Column="2"
-                            Style="{StaticResource SplitViewPaneButtonStyle}"
-                            Content="&#xE713;"
-                            AutomationProperties.Name="Settings"
-                            ToolTipService.ToolTip="Settings"/>
+					<controls:NavMenuListView
+						x:Name="NavMenuList"
+						Grid.ColumnSpan="3"
+						TabIndex="3"
+						Margin="0,52,0,0"
+						ContainerContentChanging="NavMenuItemContainerContentChanging"
+						ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
+						ItemTemplate="{StaticResource NavMenuItemTemplate}"
+						ItemInvoked="NavMenuList_ItemInvoked" />
+					<Rectangle
+						x:Name="NavPaneDivider"
+						Grid.Row="1"
+						Grid.ColumnSpan="3"
+						Height="1"
+						Fill="{ThemeResource SystemControlForegroundBaseLowBrush}"
+						Margin="16,0,16,6" />
+					<Button
+						x:Name="FeedbackNavPaneButton"
+						Grid.Row="2"
+						Grid.Column="1"
+						Style="{StaticResource SplitViewPaneButtonStyle}"
+						Content="&#xE76E;"
+						AutomationProperties.Name="Feedback"
+						ToolTipService.ToolTip="Feedback" />
+					<Button
+						x:Name="SettingsNavPaneButton"
+						Grid.Row="2"
+						Grid.Column="2"
+						Style="{StaticResource SplitViewPaneButtonStyle}"
+						Content="&#xE713;"
+						AutomationProperties.Name="Settings"
+						ToolTipService.ToolTip="Settings" />
 				</Grid>
 			</SplitView.Pane>
 
-			<!-- OnNavigatingToPage we synchronize the selected item in the nav menu with the current page.
-                 OnNavigatedToPage we move keyboard focus to the first item on the page after it's loaded and update the Back button. -->
+			<!--
+				OnNavigatingToPage we synchronize the selected item in the nav menu with the current page.
+				OnNavigatedToPage we move keyboard focus to the first item on the page after it's loaded and update the Back button.
+			-->
 			<Frame x:Name="MainContent">
 				<Frame.ContentTransitions>
 					<TransitionCollection>
@@ -137,14 +147,15 @@
 		</SplitView>
 
 		<!-- Declared last to have it rendered above everything else, but it needs to be the first item in the tab sequence. -->
-		<ToggleButton x:Name="TogglePaneButton"
-                      TabIndex="1"
-                      Margin="0,4,0,0"
-                      Style="{StaticResource SplitViewTogglePaneButtonStyle}"
-                      IsChecked="{Binding IsPaneOpen, ElementName=RootSplitView, Mode=TwoWay}"
-                      Unchecked="TogglePaneButton_Unchecked"
-                      Checked="TogglePaneButton_Checked"
-                      AutomationProperties.Name="Menu"
-                      ToolTipService.ToolTip="Menu" />
+		<ToggleButton
+			x:Name="TogglePaneButton"
+			TabIndex="1"
+			Margin="0,4,0,0"
+			Style="{StaticResource SplitViewTogglePaneButtonStyle}"
+			IsChecked="{Binding IsPaneOpen, ElementName=RootSplitView, Mode=TwoWay}"
+			Unchecked="TogglePaneButton_Unchecked"
+			Checked="TogglePaneButton_Checked"
+			AutomationProperties.Name="Menu"
+			ToolTipService.ToolTip="Menu" />
 	</Grid>
 </views:MvxWindowsPage>
