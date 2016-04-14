@@ -1,5 +1,5 @@
 
-## SplitView feature for UWP
+## UWP SplitView feature for MvvmCross
 
 
 #### TODO
