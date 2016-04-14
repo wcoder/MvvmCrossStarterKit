@@ -1,9 +1,9 @@
 
-## SplitView
+## SplitView feature for UWP
 
 
 #### TODO
-* [] Back navigation
+* [ ] Back navigation
 
 #### Based on
 
