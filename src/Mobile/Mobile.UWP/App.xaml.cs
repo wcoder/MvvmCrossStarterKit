@@ -2,7 +2,6 @@
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
@@ -31,16 +30,16 @@ namespace Mobile.UWP
 		/// <param name="e">Details about the launch request and process.</param>
 		protected override void OnLaunched(LaunchActivatedEventArgs e)
 		{
-			Frame rootFrame = Window.Current.Content as Frame;
+			var shell = Window.Current.Content as AppShell;
 
 			// Do not repeat app initialization when the Window already has content,
 			// just ensure that the window is active
-			if (rootFrame == null)
+			if (shell == null)
 			{
 				// Create a Frame to act as the navigation context and navigate to the first page
-				rootFrame = new Frame();
+				shell = new AppShell();
 
-				rootFrame.NavigationFailed += OnNavigationFailed;
+				shell.AppFrame.NavigationFailed += OnNavigationFailed;
 
 				if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
 				{
@@ -48,16 +47,16 @@ namespace Mobile.UWP
 				}
 
 				// Place the frame in the current Window
-				Window.Current.Content = rootFrame;
+				Window.Current.Content = shell;
 			}
 
-			if (rootFrame.Content == null)
+			if (shell.AppFrame.Content == null)
 			{
 				// When the navigation stack isn't restored navigate to the first page,
 				// configuring the new page by passing required information as a navigation
 				// parameter
 
-				var setup = new Setup(rootFrame);
+				var setup = new Setup(shell.AppFrame);
 				setup.Initialize();
 
 				var start = Mvx.Resolve<IMvxAppStart>();

@@ -1,5 +1,4 @@
-﻿using Windows.UI.Xaml.Controls;
-using Mobile.Core.ViewModels;
+﻿using Mobile.Core.ViewModels;
 
 namespace Mobile.UWP.Views
 {
@@ -14,14 +13,6 @@ namespace Mobile.UWP.Views
 		public FirstView()
 		{
 			InitializeComponent();
-		}
-
-		private void Navigation_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			if (Section.IsSelected)
-			{
-				ViewModel.GoToSecondCommand.Execute(null);
-			}
 		}
 	}
 }
