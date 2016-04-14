@@ -8,9 +8,30 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<StackPanel>
-			<TextBox Text="{Binding Hello, Mode=TwoWay}" />
-			<TextBlock Text="{Binding Hello}" />
-		</StackPanel>
+
+		<SplitView IsPaneOpen="True"
+				   DisplayMode="Inline"
+				   OpenPaneLength="68">
+			<SplitView.Pane>
+				<ListView SelectionChanged="Navigation_OnSelectionChanged">
+					<ListViewItem Name="Section">
+						<TextBlock Text="Second" />
+					</ListViewItem>
+				</ListView>
+			</SplitView.Pane>
+			<SplitView.Content>
+				<Frame x:Name="MainContent">
+					<Frame.ContentTransitions>
+						<TransitionCollection>
+							<NavigationThemeTransition>
+								<NavigationThemeTransition.DefaultNavigationTransitionInfo>
+									<EntranceNavigationTransitionInfo />
+								</NavigationThemeTransition.DefaultNavigationTransitionInfo>
+							</NavigationThemeTransition>
+						</TransitionCollection>
+					</Frame.ContentTransitions>
+				</Frame>
+			</SplitView.Content>
+		</SplitView>
 	</Grid>
 </views:MvxWindowsPage>
