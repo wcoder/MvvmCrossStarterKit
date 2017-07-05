@@ -1,4 +1,4 @@
-# MvvmCrossStarterKit ![version](http://img.shields.io/badge/release-v2.0.0-brightgreen.svg?style=flat) ![MvvmCross](http://img.shields.io/badge/MvvmCross-v4.0.0-brightgreen.svg?style=flat)
+# MvvmCrossStarterKit ![version](http://img.shields.io/badge/release-v3.0.0-brightgreen.svg?style=flat) ![MvvmCross](http://img.shields.io/badge/MvvmCross-v5.0.5-brightgreen.svg?style=flat)
 
 The starter project to develop apps with Xamarin + MvvmCross
 
@@ -7,7 +7,6 @@ The starter project to develop apps with Xamarin + MvvmCross
 * Android
 * iOS
 * Windows 10
-* Windows Phone 8.1
 * &
 * UnitTests
 
@@ -18,4 +17,4 @@ The starter project to develop apps with Xamarin + MvvmCross
 
 
 ---
-Copyright &copy; 2015 Yauheni Pakala | MIT License
+Copyright &copy; 2015-2017 Yauheni Pakala | MIT License
