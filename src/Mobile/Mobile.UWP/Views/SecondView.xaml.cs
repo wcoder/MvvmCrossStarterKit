@@ -1,15 +1,15 @@
-﻿using MvvmCross.WindowsUWP.Views;
+﻿using MvvmCross.Uwp.Views;
 using Mobile.Core.ViewModels;
 
 namespace Mobile.UWP.Views
 {
 	[MvxRegion("MainContent")]
-	public sealed partial class SecondView
-	{
+	public sealed partial class SecondView : MvxWindowsPage
+    {
 		public new SecondViewModel ViewModel
 		{
-			get { return (SecondViewModel)base.ViewModel; }
-			set { base.ViewModel = value; }
+			get => (SecondViewModel) base.ViewModel;
+		    set => base.ViewModel = value;
 		}
 
 		public SecondView()

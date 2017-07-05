@@ -2,7 +2,7 @@ using Windows.UI.Xaml.Controls;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform.Platform;
 using MvvmCross.Uwp.Platform;
-using MvvmCross.WindowsUWP.Views;
+using MvvmCross.Uwp.Views;
 
 namespace Mobile.UWP
 {

@@ -6,6 +6,7 @@ using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using MvvmCross.Uwp.Views;
 using Mobile.Core.ViewModels;
 using Mobile.UWP.Controls;
 
@@ -18,14 +19,14 @@ namespace Mobile.UWP.Views
 	/// The "chrome" layer of the app that provides top-level navigation with
 	/// proper keyboarding navigation.
 	/// </summary>
-	public sealed partial class AppShell
-	{
-		private bool isPaddingAdded;
+	public sealed partial class AppShell : MvxWindowsPage
+    {
+		private bool _isPaddingAdded;
 
 		public new AppShellViewModel ViewModel
 		{
-			get { return (AppShellViewModel)base.ViewModel; }
-			set { base.ViewModel = value; }
+			get => (AppShellViewModel) base.ViewModel;
+		    set => base.ViewModel = value;
 		}
 
 		public AppShellViewModel Vm { get; set; }
@@ -39,7 +40,6 @@ namespace Mobile.UWP.Views
 		public AppShell()
 		{
 			InitializeComponent();
-			
 
 			Loaded += (sender, args) =>
 			{
@@ -104,11 +104,11 @@ namespace Mobile.UWP.Views
 		/// <param name="args"></param>
 		private void TitleBar_IsVisibleChanged(Windows.ApplicationModel.Core.CoreApplicationViewTitleBar sender, object args)
 		{
-			if (!isPaddingAdded && sender.IsVisible)
+			if (!_isPaddingAdded && sender.IsVisible)
 			{
 				//add extra padding between window title bar and app content
 				double extraPadding = (Double)App.Current.Resources["DesktopWindowTopPadding"];
-				isPaddingAdded = true;
+				_isPaddingAdded = true;
 
 				Thickness margin = NavMenuList.Margin;
 				NavMenuList.Margin = new Thickness(margin.Left, margin.Top + extraPadding, margin.Right, margin.Bottom);

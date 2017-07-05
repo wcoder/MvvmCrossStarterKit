@@ -4,8 +4,8 @@ using Mobile.Core.ViewModels;
 namespace Mobile.UWP.Views
 {
 	[MvxRegion("MainContent")]
-	public sealed partial class FirstView
-	{
+	public sealed partial class FirstView : MvxWindowsPage
+    {
 		public new FirstViewModel ViewModel
 		{
 			get => (FirstViewModel) base.ViewModel;
