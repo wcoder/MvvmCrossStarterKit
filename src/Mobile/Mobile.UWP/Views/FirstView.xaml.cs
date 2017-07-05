@@ -1,5 +1,5 @@
-﻿using Mobile.Core.ViewModels;
-using MvvmCross.WindowsUWP.Views;
+﻿using MvvmCross.Uwp.Views;
+using Mobile.Core.ViewModels;
 
 namespace Mobile.UWP.Views
 {
@@ -7,8 +7,8 @@ namespace Mobile.UWP.Views
 	{
 		public new FirstViewModel ViewModel
 		{
-			get { return (FirstViewModel)base.ViewModel; }
-			set { base.ViewModel = value; }
+			get => (FirstViewModel) base.ViewModel;
+		    set => base.ViewModel = value;
 		}
 
 		public FirstView()
